@@ -10,19 +10,19 @@
   <form method="POST">
     <label>Género:
       <select name="gender">
-        <option>Male</option>
-        <option>Female</option>
-        <option>Other</option>
+        <option>Masculino</option>
+        <option>Femenino</option>
+        <option>Otro</option>
       </select>
     </label><br>
     <label>Edad: <input type="number" name="age" step="1" required></label><br>
-    <label>Hipertensión:
+    <label>¿Tiene hipertensión?:
       <select name="hypertension">
         <option value="0">No</option>
         <option value="1">Sí</option>
       </select>
     </label><br>
-    <label>Enfermedad cardíaca:
+    <label>¿Tiene enfermedad cardíaca?:
       <select name="heart_disease">
         <option value="0">No</option>
         <option value="1">Sí</option>
@@ -30,15 +30,15 @@
     </label><br>
     <label>Historial de tabaquismo:
       <select name="smoking_history">
-        <option>never</option>
-        <option>current</option>
-        <option>former</option>
-        <option>ever</option>
-        <option>not current</option>
+        <option>nunca</option>
+        <option>actual</option>
+        <option>anterior</option>
+        <option>alguna vez</option>
+        <option>no actual</option>
       </select>
     </label><br>
-    <label>BMI (indice de masa corporal): <input type="number" name="bmi" step="0.1" required></label><br>
-    <label>HbA1c (%): <input type="number" name="HbA1c_level" step="0.1" required></label><br>
+    <label>Índice de masa corporal (BMI): <input type="number" name="bmi" step="0.1" required></label><br>
+    <label>Nivel de HbA1c (%): <input type="number" name="HbA1c_level" step="0.1" required></label><br>
     <label>Glucosa en sangre (mg/dL): <input type="number" name="blood_glucose_level" required></label><br>
     <button type="submit">Predecir</button>
   </form>

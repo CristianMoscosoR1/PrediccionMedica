@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Resultado</title>
+  <title>Resultado de la Predicción</title>
 </head>
 <body>
   <h1>Resultado de la Predicción</h1>
@@ -13,8 +13,8 @@
     <li>Hipertensión: {{ hypertension }}</li>
     <li>Enfermedad cardíaca: {{ heart_disease }}</li>
     <li>Historial de tabaquismo: {{ smoking_history }}</li>
-    <li>BMI: {{ bmi }}</li>
-    <li>HbA1c (%): {{ HbA1c_level }}</li>
+    <li>Índice de masa corporal (BMI): {{ bmi }}</li>
+    <li>Nivel de HbA1c (%): {{ HbA1c_level }}</li>
     <li>Glucosa en sangre (mg/dL): {{ blood_glucose_level }}</li>
   </ul>
   {% if prediction == 1 %}
@@ -22,6 +22,6 @@
   {% else %}
     <p style="color:green;">Se predice <strong>NO DIABETES</strong>.</p>
   {% endif %}
-  <a href="/">← Volver</a>
+  <a href="/">← Volver al formulario</a>
 </body>
 </html>
