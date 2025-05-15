@@ -75,21 +75,29 @@ def formulario():
         }
         df = pd.DataFrame([rec])
         df['gender'] = df['gender'].map({'Masculino': 0, 'Femenino': 1, 'Otro': 2})
+        # Mapear valores de smoking_history a los usados en el modelo
+        smoking_map = {
+            'actual': 'current',
+            'alguna vez': 'ever',
+            'anterior': 'former',
+            'nunca': 'never',
+            'no actual': 'not current'
+        }
+        df['smoking_history'] = df['smoking_history'].map(smoking_map)
         df = pd.get_dummies(df, columns=['smoking_history'], drop_first=True)
-        for col in [
-            'smoking_history_actual',
-            'smoking_history_anterior',
-            'smoking_history_alguna vez',
-            'smoking_history_nunca',
-            'smoking_history_no actual'
-        ]:
+        dummy_cols = [
+            'smoking_history_current',
+            'smoking_history_ever',
+            'smoking_history_former',
+            'smoking_history_never',
+            'smoking_history_not current'
+        ]
+        for col in dummy_cols:
             if col not in df:
                 df[col] = 0
         ordered_cols = [
-            'gender', 'age', 'hypertension', 'heart_disease', 'bmi', 'HbA1c_level', 'blood_glucose_level',
-            'smoking_history_actual', 'smoking_history_anterior',
-            'smoking_history_alguna vez', 'smoking_history_nunca', 'smoking_history_no actual'
-        ]
+            'gender', 'age', 'hypertension', 'heart_disease', 'bmi', 'HbA1c_level', 'blood_glucose_level'
+        ] + dummy_cols
         df = df.reindex(columns=ordered_cols, fill_value=0)
         num_cols = ['age', 'bmi', 'HbA1c_level', 'blood_glucose_level']
         df[num_cols] = scaler.transform(df[num_cols])
