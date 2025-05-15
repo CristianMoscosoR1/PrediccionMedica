@@ -14,7 +14,7 @@ def media(filename):
     return send_from_directory(media_dir, filename)
 
 # --- Cargar artefactos ---
-MODEL_DIR   = os.path.join(os.path.dirname(__file__), '..', 'models')
+MODEL_DIR   = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'models'))
 MODEL_PATH  = os.path.join(MODEL_DIR, 'logistic_regression_model.pkl')
 SCALER_PATH = os.path.join(MODEL_DIR, 'standard_scaler.pkl')
 
