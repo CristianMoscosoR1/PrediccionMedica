@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado</title>
+</head>
+<body>
+  <h1>Resultado de la Predicción</h1>
+  <h3>Valores ingresados:</h3>
+  <ul>
+    <li>Género: {{ gender }}</li>
+    <li>Edad: {{ age }}</li>
+    <li>Hipertensión: {{ hypertension }}</li>
+    <li>Enfermedad cardíaca: {{ heart_disease }}</li>
+    <li>Historial de tabaquismo: {{ smoking_history }}</li>
+    <li>BMI: {{ bmi }}</li>
+    <li>HbA1c (%): {{ HbA1c_level }}</li>
+    <li>Glucosa en sangre (mg/dL): {{ blood_glucose_level }}</li>
+  </ul>
+  {% if prediction == 1 %}
+    <p style="color:red;">Se predice <strong>DIABETES</strong>.</p>
+  {% else %}
+    <p style="color:green;">Se predice <strong>NO DIABETES</strong>.</p>
+  {% endif %}
+  <a href="/">← Volver</a>
+</body>
+</html>

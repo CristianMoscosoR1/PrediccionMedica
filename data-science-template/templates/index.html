@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Predicción de Diabetes</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Predicción de Diabetes</h1>
+  <form method="POST">
+    <label>Género:
+      <select name="gender">
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+    </label><br>
+    <label>Edad: <input type="number" name="age" step="1" required></label><br>
+    <label>Hipertensión:
+      <select name="hypertension">
+        <option value="0">No</option>
+        <option value="1">Sí</option>
+      </select>
+    </label><br>
+    <label>Enfermedad cardíaca:
+      <select name="heart_disease">
+        <option value="0">No</option>
+        <option value="1">Sí</option>
+      </select>
+    </label><br>
+    <label>Historial de tabaquismo:
+      <select name="smoking_history">
+        <option>never</option>
+        <option>current</option>
+        <option>former</option>
+        <option>ever</option>
+        <option>not current</option>
+      </select>
+    </label><br>
+    <label>BMI (indice de masa corporal): <input type="number" name="bmi" step="0.1" required></label><br>
+    <label>HbA1c (%): <input type="number" name="HbA1c_level" step="0.1" required></label><br>
+    <label>Glucosa en sangre (mg/dL): <input type="number" name="blood_glucose_level" required></label><br>
+    <button type="submit">Predecir</button>
+  </form>
+  {% if prediction is not none %}
+    <h2>Resultado:</h2>
+    {% if prediction == 1 %}
+      <p style="color:red;">Se predice <strong>DIABETES</strong>.</p>
+    {% else %}
+      <p style="color:green;">Se predice <strong>NO DIABETES</strong>.</p>
+    {% endif %}
+  {% endif %}
+</body>
+</html>
