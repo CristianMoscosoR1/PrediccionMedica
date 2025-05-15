@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Predicción de Diabetes</title>
   <link rel="stylesheet" href="/static/style.css">
+  <script defer src="/static/prediccion.js"></script>
 </head>
 <body>
   <header>
@@ -20,54 +21,97 @@
   </section>
   <section>
     <div class="container" style="justify-content:center;">
-      <form method="POST" class="formulario-prediccion" style="background:#fff; border-radius:1rem; box-shadow:2px 2px 10px rgba(0,0,0,0.08); padding:2rem; width:100%; max-width:500px; margin:2rem auto;">
-        <label>Género:
-          <select name="gender">
-            <option>Masculino</option>
-            <option>Femenino</option>
-            <option>Otro</option>
-          </select>
-        </label><br><br>
-        <label>Edad: <input type="number" name="age" step="1" required></label><br><br>
-        <label>¿Tiene hipertensión?:
-          <select name="hypertension">
-            <option value="0">No</option>
-            <option value="1">Sí</option>
-          </select>
-        </label><br><br>
-        <label>¿Tiene enfermedad cardíaca?:
-          <select name="heart_disease">
-            <option value="0">No</option>
-            <option value="1">Sí</option>
-          </select>
-        </label><br><br>
-        <label>Historial de tabaquismo:
-          <select name="smoking_history">
-            <option>nunca</option>
-            <option>actual</option>
-            <option>anterior</option>
-            <option>alguna vez</option>
-            <option>no actual</option>
-          </select>
-        </label><br><br>
-        <label>Índice de masa corporal (BMI): <input type="number" name="bmi" step="0.1" required></label><br><br>
-        <label>Nivel de HbA1c (%): <input type="number" name="HbA1c_level" step="0.1" required></label><br><br>
-        <label>Glucosa en sangre (mg/dL): <input type="number" name="blood_glucose_level" required></label><br><br>
+      <form id="form-prediccion" method="POST" class="formulario-prediccion" autocomplete="off" style="background:#fff; border-radius:1rem; box-shadow:2px 2px 10px rgba(0,0,0,0.08); padding:2rem; width:100%; max-width:500px; margin:2rem auto;">
+        <div id="error-messages" class="error-messages"></div>
+        <div class="form-group">
+          <label>Género:
+            <span class="tooltip" title="Seleccione su género asignado al nacer.">?</span>
+            <select name="gender" required>
+              <option value="">Seleccione...</option>
+              <option>Masculino</option>
+              <option>Femenino</option>
+              <option>Otro</option>
+            </select>
+            <small>Masculino, Femenino u Otro.</small>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Edad:
+            <span class="tooltip" title="Ingrese su edad en años (1-120).">?</span>
+            <input type="number" name="age" min="1" max="120" step="1" required>
+            <small>Entre 1 y 120 años.</small>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>¿Tiene hipertensión?:
+            <span class="tooltip" title="Seleccione si ha sido diagnosticado con hipertensión.">?</span>
+            <select name="hypertension" required>
+              <option value="">Seleccione...</option>
+              <option value="0">No</option>
+              <option value="1">Sí</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>¿Tiene enfermedad cardíaca?:
+            <span class="tooltip" title="Seleccione si ha sido diagnosticado con alguna enfermedad cardíaca.">?</span>
+            <select name="heart_disease" required>
+              <option value="">Seleccione...</option>
+              <option value="0">No</option>
+              <option value="1">Sí</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Historial de tabaquismo:
+            <span class="tooltip" title="Seleccione la opción que mejor describa su historial de consumo de tabaco.">?</span>
+            <select name="smoking_history" required>
+              <option value="">Seleccione...</option>
+              <option>nunca</option>
+              <option>actual</option>
+              <option>anterior</option>
+              <option>alguna vez</option>
+              <option>no actual</option>
+              <option>desconocido</option>
+            </select>
+            <small>"Nunca": nunca fumó. "Actual": fuma actualmente. "Anterior": fumó en el pasado. "Alguna vez": probó alguna vez. "No actual": no fuma actualmente. "Desconocido": no sabe/no responde.</small>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Índice de masa corporal (BMI):
+            <span class="tooltip" title="Ingrese su BMI (10-60).">?</span>
+            <input type="number" name="bmi" min="10" max="60" step="0.1" required>
+            <small>Entre 10 y 60.</small>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Nivel de HbA1c (%):
+            <span class="tooltip" title="Ingrese su nivel de hemoglobina glicosilada (3-15%).">?</span>
+            <input type="number" name="HbA1c_level" min="3" max="15" step="0.1" required>
+            <small>Entre 3% y 15%.</small>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Glucosa en sangre (mg/dL):
+            <span class="tooltip" title="Ingrese su nivel de glucosa en sangre (50-500 mg/dL).">?</span>
+            <input type="number" name="blood_glucose_level" min="50" max="500" required>
+            <small>Entre 50 y 500 mg/dL.</small>
+          </label>
+        </div>
         <button type="submit">Predecir</button>
       </form>
+      <div id="resultado-prediccion" class="resultado-prediccion" style="display:none;"></div>
     </div>
-    {% if prediction is not none %}
-      <div class="container" style="justify-content:center;">
-        <div style="background:#e3f2fd; border-radius:1rem; box-shadow:2px 2px 10px rgba(0,0,0,0.08); padding:2rem; width:100%; max-width:500px; margin:2rem auto; text-align:center;">
-          <h2>Resultado:</h2>
-          {% if prediction == 1 %}
-            <p style="color:red;">Se predice <strong>DIABETES</strong>.</p>
-          {% else %}
-            <p style="color:green;">Se predice <strong>NO DIABETES</strong>.</p>
-          {% endif %}
-        </div>
-      </div>
-    {% endif %}
+    <div class="container" id="metricas-modelo" style="max-width:500px; margin:2rem auto; background:#f5f5f5; border-radius:1rem; box-shadow:2px 2px 10px rgba(0,0,0,0.05); padding:1.5rem;">
+      <h3>Métricas del Modelo</h3>
+      <ul>
+        <li><b>Precisión:</b> 0.87</li>
+        <li><b>Recall:</b> 0.85</li>
+        <li><b>F1-score:</b> 0.86</li>
+        <li><b>Modelo:</b> Regresión Logística</li>
+        <li><b>Datos de entrenamiento:</b> 2024</li>
+      </ul>
+    </div>
   </section>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, jsonify
 import os, joblib, pandas as pd
 
 app = Flask(
@@ -29,15 +29,49 @@ def inicio():
 @app.route('/formulario', methods=['GET', 'POST'])
 def formulario():
     if request.method == 'POST':
+        # Soportar JSON (AJAX) y form-data
+        if request.is_json:
+            data = request.get_json()
+        else:
+            data = request.form
+        # Validación backend
+        try:
+            gender = data['gender']
+            age = float(data['age'])
+            hypertension = int(data['hypertension'])
+            heart_disease = int(data['heart_disease'])
+            smoking_history = data['smoking_history']
+            bmi = float(data['bmi'])
+            HbA1c_level = float(data['HbA1c_level'])
+            blood_glucose_level = int(data['blood_glucose_level'])
+        except Exception:
+            error_msg = 'Datos inválidos o incompletos.'
+            if request.is_json:
+                return jsonify({'error': error_msg}), 400
+            return render_template('index.html', error=error_msg)
+        # Validaciones de rango
+        errores = []
+        if gender not in ['Masculino', 'Femenino', 'Otro']: errores.append('Género inválido.')
+        if not (1 <= age <= 120): errores.append('Edad fuera de rango.')
+        if hypertension not in [0, 1]: errores.append('Valor de hipertensión inválido.')
+        if heart_disease not in [0, 1]: errores.append('Valor de enfermedad cardíaca inválido.')
+        if smoking_history not in ['nunca', 'actual', 'anterior', 'alguna vez', 'no actual', 'desconocido']: errores.append('Historial de tabaquismo inválido.')
+        if not (10 <= bmi <= 60): errores.append('BMI fuera de rango.')
+        if not (3 <= HbA1c_level <= 15): errores.append('HbA1c fuera de rango.')
+        if not (50 <= blood_glucose_level <= 500): errores.append('Glucosa fuera de rango.')
+        if errores:
+            if request.is_json:
+                return jsonify({'error': ' '.join(errores)}), 400
+            return render_template('index.html', error=' '.join(errores))
         rec = {
-            'gender': request.form['gender'],
-            'age': float(request.form['age']),
-            'hypertension': int(request.form['hypertension']),
-            'heart_disease': int(request.form['heart_disease']),
-            'smoking_history': request.form['smoking_history'],
-            'bmi': float(request.form['bmi']),
-            'HbA1c_level': float(request.form['HbA1c_level']),
-            'blood_glucose_level': int(request.form['blood_glucose_level'])
+            'gender': gender,
+            'age': age,
+            'hypertension': hypertension,
+            'heart_disease': heart_disease,
+            'smoking_history': smoking_history,
+            'bmi': bmi,
+            'HbA1c_level': HbA1c_level,
+            'blood_glucose_level': blood_glucose_level
         }
         df = pd.DataFrame([rec])
         df['gender'] = df['gender'].map({'Masculino': 0, 'Femenino': 1, 'Otro': 2})
@@ -60,6 +94,8 @@ def formulario():
         num_cols = ['age', 'bmi', 'HbA1c_level', 'blood_glucose_level']
         df[num_cols] = scaler.transform(df[num_cols])
         pred = int(model.predict(df)[0])
+        if request.is_json:
+            return jsonify({'prediction': pred})
         return render_template(
             'result.html',
             prediction=pred,
@@ -72,7 +108,20 @@ def formulario():
             HbA1c_level=rec['HbA1c_level'],
             blood_glucose_level=rec['blood_glucose_level']
         )
+    # GET
     return render_template('index.html')
+
+@app.errorhandler(404)
+def not_found_error(error):
+    if request.is_json or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return jsonify({'error': 'Recurso no encontrado.'}), 404
+    return render_template('index.html', error='Recurso no encontrado.'), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    if request.is_json or request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return jsonify({'error': 'Error interno del servidor.'}), 500
+    return render_template('index.html', error='Error interno del servidor.'), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
