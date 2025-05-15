@@ -14,7 +14,7 @@ __pycache__/
 .pytest_cache/
 
 # Ignorar archivos y carpetas generados
-models/*.pkl
+# models/*.pkl
 __pycache__/
 *.pyc
 *.ipynb_checkpoints/
