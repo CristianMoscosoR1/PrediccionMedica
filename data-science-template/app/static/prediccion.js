@@ -56,10 +56,12 @@ document.addEventListener('DOMContentLoaded', function () {
           errorDiv.innerHTML = `<div class='error'>${data.error}</div>`;
         } else {
           resultadoDiv.style.display = 'block';
-          if (data.prediction === 1) {
+          if (data.prediction == 1) {
             resultadoDiv.innerHTML = `<h2>Resultado:</h2><p style='color:red;'><strong>Se predice DIABETES.</strong></p><p><b>Recomendación:</b> Consulte a su médico y siga hábitos saludables.</p>`;
-          } else {
+          } else if (data.prediction == 0) {
             resultadoDiv.innerHTML = `<h2>Resultado:</h2><p style='color:green;'><strong>No se predice diabetes.</strong></p><p><b>Recomendación:</b> Mantenga sus hábitos saludables y realice chequeos periódicos.</p>`;
+          } else {
+            resultadoDiv.innerHTML = `<div class='error'>Respuesta inesperada del servidor.</div>`;
           }
         }
       })
