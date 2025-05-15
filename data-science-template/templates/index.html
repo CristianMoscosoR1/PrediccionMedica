@@ -6,49 +6,68 @@
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <h1>Predicción de Diabetes</h1>
-  <form method="POST">
-    <label>Género:
-      <select name="gender">
-        <option>Masculino</option>
-        <option>Femenino</option>
-        <option>Otro</option>
-      </select>
-    </label><br>
-    <label>Edad: <input type="number" name="age" step="1" required></label><br>
-    <label>¿Tiene hipertensión?:
-      <select name="hypertension">
-        <option value="0">No</option>
-        <option value="1">Sí</option>
-      </select>
-    </label><br>
-    <label>¿Tiene enfermedad cardíaca?:
-      <select name="heart_disease">
-        <option value="0">No</option>
-        <option value="1">Sí</option>
-      </select>
-    </label><br>
-    <label>Historial de tabaquismo:
-      <select name="smoking_history">
-        <option>nunca</option>
-        <option>actual</option>
-        <option>anterior</option>
-        <option>alguna vez</option>
-        <option>no actual</option>
-      </select>
-    </label><br>
-    <label>Índice de masa corporal (BMI): <input type="number" name="bmi" step="0.1" required></label><br>
-    <label>Nivel de HbA1c (%): <input type="number" name="HbA1c_level" step="0.1" required></label><br>
-    <label>Glucosa en sangre (mg/dL): <input type="number" name="blood_glucose_level" required></label><br>
-    <button type="submit">Predecir</button>
-  </form>
-  {% if prediction is not none %}
-    <h2>Resultado:</h2>
-    {% if prediction == 1 %}
-      <p style="color:red;">Se predice <strong>DIABETES</strong>.</p>
-    {% else %}
-      <p style="color:green;">Se predice <strong>NO DIABETES</strong>.</p>
+  <header>
+    <div class="container">
+      <p class="logo">Predicción de Diabetes</p>
+      <nav>
+        <a href="/">Inicio</a>
+        <a href="/formulario">Predicción</a>
+      </nav>
+    </div>
+  </header>
+  <section id="hero">
+    <h1>Formulario de Predicción</h1>
+  </section>
+  <section>
+    <div class="container" style="justify-content:center;">
+      <form method="POST" class="formulario-prediccion" style="background:#fff; border-radius:1rem; box-shadow:2px 2px 10px rgba(0,0,0,0.08); padding:2rem; width:100%; max-width:500px; margin:2rem auto;">
+        <label>Género:
+          <select name="gender">
+            <option>Masculino</option>
+            <option>Femenino</option>
+            <option>Otro</option>
+          </select>
+        </label><br><br>
+        <label>Edad: <input type="number" name="age" step="1" required></label><br><br>
+        <label>¿Tiene hipertensión?:
+          <select name="hypertension">
+            <option value="0">No</option>
+            <option value="1">Sí</option>
+          </select>
+        </label><br><br>
+        <label>¿Tiene enfermedad cardíaca?:
+          <select name="heart_disease">
+            <option value="0">No</option>
+            <option value="1">Sí</option>
+          </select>
+        </label><br><br>
+        <label>Historial de tabaquismo:
+          <select name="smoking_history">
+            <option>nunca</option>
+            <option>actual</option>
+            <option>anterior</option>
+            <option>alguna vez</option>
+            <option>no actual</option>
+          </select>
+        </label><br><br>
+        <label>Índice de masa corporal (BMI): <input type="number" name="bmi" step="0.1" required></label><br><br>
+        <label>Nivel de HbA1c (%): <input type="number" name="HbA1c_level" step="0.1" required></label><br><br>
+        <label>Glucosa en sangre (mg/dL): <input type="number" name="blood_glucose_level" required></label><br><br>
+        <button type="submit">Predecir</button>
+      </form>
+    </div>
+    {% if prediction is not none %}
+      <div class="container" style="justify-content:center;">
+        <div style="background:#e3f2fd; border-radius:1rem; box-shadow:2px 2px 10px rgba(0,0,0,0.08); padding:2rem; width:100%; max-width:500px; margin:2rem auto; text-align:center;">
+          <h2>Resultado:</h2>
+          {% if prediction == 1 %}
+            <p style="color:red;">Se predice <strong>DIABETES</strong>.</p>
+          {% else %}
+            <p style="color:green;">Se predice <strong>NO DIABETES</strong>.</p>
+          {% endif %}
+        </div>
+      </div>
     {% endif %}
-  {% endif %}
+  </section>
 </body>
 </html>
