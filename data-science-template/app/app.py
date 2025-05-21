@@ -7,7 +7,9 @@ app = Flask(
     static_folder='static'
 )
 
-# Ruta para inicio.html como página de bienvenida
+
+# Ruta para /inicio y /inicio.html como página de bienvenida
+@app.route('/inicio')
 @app.route('/inicio.html')
 def inicio_html():
     return render_template('inicio.html')
