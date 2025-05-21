@@ -21,10 +21,35 @@ SCALER_PATH = os.path.join(MODEL_DIR, 'standard_scaler.pkl')
 model  = joblib.load(MODEL_PATH)
 scaler = joblib.load(SCALER_PATH)
 
-# Rutas
+
+# Rutas principales
 @app.route('/')
 def inicio():
     return render_template('inicio.html')
+
+@app.route('/negocio-datos')
+def negocio_datos():
+    return render_template('negocio-datos.html')
+
+@app.route('/ingenieria-datos')
+def ingenieria_datos():
+    return render_template('ingenieria-datos.html')
+
+@app.route('/modelo')
+def modelo():
+    return render_template('modelo.html')
+
+@app.route('/evaluacion')
+def evaluacion():
+    return render_template('evaluacion.html')
+
+@app.route('/despliegue')
+def despliegue():
+    return render_template('despliegue.html')
+
+@app.route('/monitoreo')
+def monitoreo():
+    return render_template('monitoreo.html')
 
 @app.route('/formulario', methods=['GET', 'POST'])
 def formulario():
