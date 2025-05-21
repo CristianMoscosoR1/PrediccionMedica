@@ -1,3 +1,12 @@
+from flask import Flask, render_template, request, send_from_directory, jsonify
+import os, joblib, pandas as pd
+
+app = Flask(
+    __name__,
+    template_folder='../templates',
+    static_folder='static'
+)
+
 # Ruta para inicio.html como página de bienvenida
 @app.route('/inicio.html')
 def inicio_html():
