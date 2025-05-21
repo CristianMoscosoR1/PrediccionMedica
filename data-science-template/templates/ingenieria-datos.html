@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ingeniería de Datos</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f8f9fa; }
+    header, footer { background: #6c63ff; color: #fff; padding: 1rem 0; text-align: center; }
+    nav { background: #ececec; padding: 0.5rem 0; text-align: center; }
+    nav a { color: #333; text-decoration: none; margin: 0 1.2em; font-weight: 500; }
+    nav a:hover { color: #6c63ff; }
+    main { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 1rem; box-shadow: 0 2px 10px #0001; padding: 2rem; }
+    h1, h2 { color: #6c63ff; }
+    ul { margin-left: 1.5em; }
+    section { margin-bottom: 2em; }
+    code { background: #f3f3f3; padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Predicción de Diabetes en Chía</h1>
+  </header>
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="negocio-datos.html">Negocio y Datos</a>
+    <a href="ingenieria-datos.html">Ingeniería de Datos</a>
+    <a href="modelo.html">Modelo</a>
+    <a href="evaluacion.html">Evaluación</a>
+    <a href="despliegue.html">Despliegue</a>
+    <a href="monitoreo.html">Monitoreo</a>
+    <a href="https://prediccionmedica.onrender.com" target="_blank">Predicción Online</a>
+  </nav>
+  <main>
+    <section>
+      <h2>Descripción del dataset local</h2>
+      <p>El dataset fue recolectado en centros de salud de Chía e incluye variables clínicas y demográficas relevantes para la predicción de diabetes.</p>
+    </section>
+    <section>
+      <h2>Proceso de limpieza</h2>
+      <ul>
+        <li>Eliminación de valores faltantes y registros inconsistentes.</li>
+        <li>Corrección manual de errores detectados en la digitación.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Transformaciones aplicadas</h2>
+      <ul>
+        <li>Normalización de variables numéricas (edad, glucosa, BMI, etc.).</li>
+        <li>Codificación de variables categóricas (género, tabaquismo, etc.).</li>
+      </ul>
+    </section>
+    <section>
+      <h2>División de datos</h2>
+      <ul>
+        <li>Separación en conjuntos de <b>entrenamiento</b> y <b>prueba</b> (80/20).</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Enlace al código</h2>
+      <p>Puedes consultar el código de procesamiento en <code>src/data_preparation.py</code> y <code>src/train.py</code>.</p>
+    </section>
+  </main>
+  <footer>
+    <small>Proyecto CRISP-ML &copy; 2025 | Chía, Colombia</small>
+  </footer>
+</body>
+</html>
