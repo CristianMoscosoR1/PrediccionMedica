@@ -1,3 +1,7 @@
+# Ruta para inicio.html como página de bienvenida
+@app.route('/inicio.html')
+def inicio_html():
+    return render_template('inicio.html')
 from flask import Flask, render_template, request, send_from_directory, jsonify
 import os, joblib, pandas as pd
 
