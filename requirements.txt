@@ -1,0 +1,19 @@
+fastapi
+uvicorn
+pydantic
+pandas
+scikit-learn
+joblib
+Flask
+Gunicorn
+numpy
+matplotlib
+seaborn
+# For testing
+pytest
+pytest-cov
+# For Jupyter Notebook
+jupyter
+# For data visualization
+plotly
+# For data analysis
