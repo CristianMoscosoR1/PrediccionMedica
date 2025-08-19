@@ -134,7 +134,7 @@ PrediccionMedica/
 ---
 
 ## 👨‍💻 Créditos <a name="creditos"></a>
-Desarrollado por **Julian Coronado** y **Cristian Moscoso**.
+Desarrollado por **Cristian Moscoso**.
 
 <p align="center">
   <img src="https://img.shields.io/github/stars/CristianMoscosoR1/PrediccionMedica?style=social"/>
